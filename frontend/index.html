@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlockCred – Blockchain-Based Skill Credential Verification System</title>
+  <!-- Google Fonts: Inter and Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- PAGE 0: LANDING / LOGIN PAGE -->
+  <section id="login-page" class="page active">
+    <div class="landing-hero">
+      <div class="hero-content">
+        <div class="badge-new">NEW: Decentralized Verification</div>
+        <h1 class="premium-title">BlockCred</h1>
+        <p class="subtitle">Secure, Immutable & Instantly Verifiable Certificates on the Blockchain</p>
+        <div class="features-grid-mini">
+          <div class="feature-item"><i class="fas fa-shield-alt"></i> Tamper Proof</div>
+          <div class="feature-item"><i class="fas fa-check-double"></i> One-Tap Verify</div>
+          <div class="feature-item"><i class="fas fa-link"></i> Poly-Chain Sync</div>
+        </div>
+        <div class="cta-group">
+          <button class="btn btn-accent" id="start-now">Get Started <i class="fas fa-arrow-right"></i></button>
+          <button class="btn btn-primary" id="public-verify">Verify Now</button>
+        </div>
+      </div>
+
+      <div class="login-split">
+        <div class="glass-card login-card">
+          <div class="logo">
+            <span class="text-accent"><i class="fas fa-certificate"></i> BlockCred</span>
+          </div>
+          <h3>Welcome Back</h3>
+          <p class="text-gray subtitle">Access your secure credentials portal</p>
+
+          <form id="login-form">
+            <div class="input-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="john.doe@example.com" required>
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <div class="role-selector">
+              <p class="text-gray" style="font-size: 0.85rem; margin-bottom: 8px;">Login as:</p>
+              <div class="roles">
+                <button type="button" class="role-btn active" data-role="Admin">Admin</button>
+                <button type="button" class="role-btn" data-role="Institution">Institution</button>
+                <button type="button" class="role-btn" data-role="Student">Student</button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-accent w-100">Login to Dashboard</button>
+          </form>
+          <div class="login-footer">
+            <p>Don't have an account? <a href="#" id="goto-signup" class="text-accent">Sign Up</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 0B: SIGNUP PAGE -->
+  <section id="signup-page" class="page">
+    <div class="landing-hero" style="flex-direction: row-reverse;">
+      <div class="hero-content"
+        style="align-items: flex-end; text-align: right; background: linear-gradient(-90deg, rgba(4, 8, 16, 0.95) 0%, rgba(4, 8, 16, 0.7) 70%, transparent 100%);">
+        <h2 class="premium-title" style="font-size: 3rem;">Join the Network</h2>
+        <p class="subtitle">Empowering institutions and students with decentralized identity and secure credentials.</p>
+        <div class="features-grid-mini">
+          <div class="feature-item"><i class="fas fa-university"></i> Institute Verification</div>
+          <div class="feature-item"><i class="fas fa-user-graduate"></i> Student Portfolio</div>
+        </div>
+      </div>
+
+      <div class="login-split">
+        <div class="glass-card login-card">
+          <div class="logo">
+            <span class="text-accent"><i class="fas fa-certificate"></i> BlockCred</span>
+          </div>
+          <h3>Create Account</h3>
+          <p class="text-gray subtitle">Begin your secure credential journey</p>
+
+          <form id="signup-form">
+            <div class="input-group">
+              <label>Full Name</label>
+              <input type="text" id="reg-name" placeholder="John Doe" required>
+            </div>
+            <div class="input-group">
+              <label>Email Address</label>
+              <input type="email" id="reg-email" placeholder="john.doe@example.com" required>
+            </div>
+            <div class="input-group">
+              <label>Password</label>
+              <input type="password" id="reg-password" placeholder="••••••••" required>
+            </div>
+            <div class="role-selector">
+              <p class="text-gray" style="font-size: 0.85rem; margin-bottom: 8px;">Register as:</p>
+              <div class="roles signup-roles">
+                <button type="button" class="role-btn-signup active" data-role="Admin">Admin</button>
+                <button type="button" class="role-btn-signup" data-role="Institution">Institution</button>
+                <button type="button" class="role-btn-signup" data-role="Student">Student</button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-accent w-100">Create Account</button>
+          </form>
+          <div class="login-footer">
+            <p>Already have an account? <a href="#" id="goto-login" class="text-accent">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- DASHBOARD WRAPPER (Visible after login) -->
+  <div id="dashboard-wrapper" class="main-wrapper" style="display: none;">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo mb-40">
+        <span class="text-accent"><i class="fas fa-certificate"></i> BlockCred</span>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</li>
+          <li data-page="my-certificates"><i class="fas fa-certificate"></i> My Certificates</li>
+          <li data-page="issue-certificate"><i class="fas fa-plus-circle"></i> Issue Certificate</li>
+          <li data-page="verify-certificate"><i class="fas fa-shield-check"></i> Verify Certificate</li>
+          <li data-page="recent-verifications"><i class="fas fa-history"></i> History</li>
+          <li data-page="profile"><i class="fas fa-user-gear"></i> Profile Settings</li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer mt-auto">
+        <button id="logout-btn" class="btn btn-primary w-100"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      <!-- TOP NAVBAR -->
+      <header class="top-navbar">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search certificates or IDs...">
+        </div>
+        <div class="nav-actions">
+          <div class="theme-toggle" id="theme-switch" title="Toggle Light/Dark Mode">
+            <i class="fas fa-moon"></i>
+          </div>
+          <div class="notification-container">
+            <div class="notification-icon" id="bell-icon">
+              <i class="fas fa-bell"></i>
+              <span class="badge">3</span>
+            </div>
+            <!-- Dropdown Menu -->
+            <div class="glass-card notification-dropdown" id="notif-dropdown">
+              <div class="notif-header">
+                <h4>Recent Notifications</h4>
+                <a href="#" style="font-size: 0.75rem; color: var(--accent-primary);">Mark all read</a>
+              </div>
+              <div class="notif-list" id="notif-list">
+                <div class="notif-item">
+                  <i class="fas fa-link" style="color: #00b894;"></i>
+                  <div>
+                    <p>New block mined: CERT-721</p>
+                    <span>2 mins ago</span>
+                  </div>
+                </div>
+                <div class="notif-item">
+                  <i class="fas fa-shield-check" style="color: var(--accent-primary);"></i>
+                  <div>
+                    <p>Wallet identity verified</p>
+                    <span>1 hour ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="notif-footer">
+                <button class="btn btn-primary btn-sm w-100" onclick="switchPage('recent-verifications')">View All
+                  Activity</button>
+              </div>
+            </div>
+          </div>
+          <div class="user-avatar">
+            <img src="https://api.dicebear.com/7.x/initials/svg?seed=JD&backgroundColor=7c3aed" alt="Avatar"
+              id="nav-user-avatar">
+            <span id="nav-user-name">John Doe</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE 2: DASHBOARD -->
+      <section id="dashboard" class="page-content active">
+        <div class="dashboard-welcome glass-card p-40 mb-40"
+          style="text-align: left; background: linear-gradient(135deg, rgba(163, 196, 255, 0.1) 0%, transparent 100%); position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; right: -50px; top: -20px; width: 300px; height: 120%; background-image: url('assets/hero.png'); background-size: contain; background-repeat: no-repeat; opacity: 0.4; filter: drop-shadow(0 0 20px var(--accent-primary)); transform: rotate(-5deg);">
+          </div>
+          <div style="position: relative; z-index: 2;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Hello, <span id="welcome-user-name">Explorer</span>! 👋
+            </h1>
+            <p class="text-gray" style="font-size: 1.1rem;">Manage your blockchain identity and verify secure
+              credentials instantly.</p>
+          </div>
+        </div>
+
+        <div class="page-header">
+          <h2>Quick Insights</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="fas fa-file-invoice"></i></div>
+            <div class="stat-info">
+              <span class="text-gray">Total Certificates</span>
+              <h3>1,280</h3>
+            </div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-info">
+              <span class="text-gray">Verified Certificates</span>
+              <h3>1,254</h3>
+            </div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div class="stat-info">
+              <span class="text-gray">Issued This Month</span>
+              <h3>45</h3>
+            </div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+            <div class="stat-info">
+              <span class="text-gray">Accuracy (%)</span>
+              <h3>100%</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-section mt-40">
+          <h2>Recent Activity</h2>
+          <div class="glass-card activity-card">
+            <!-- Placeholder content for dashboard activity -->
+            <p class="text-gray">Real-time blockchain updates...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 3: MY CERTIFICATES -->
+      <section id="my-certificates" class="page-content">
+        <div class="page-header d-flex-between">
+          <h1>My Certificates</h1>
+          <div class="filter-options">
+            <button class="btn btn-primary active">All</button>
+            <button class="btn btn-primary">Verified</button>
+            <button class="btn btn-primary">Pending</button>
+          </div>
+        </div>
+        <div class="certificate-grid mt-20">
+          <div class="glass-card certificate-card">
+            <div class="cert-header">
+              <i class="fas fa-medal gold-icon"></i>
+              <span class="badge badge-success">Verified</span>
+            </div>
+            <h3>Advanced Blockchain Architecture</h3>
+            <p class="text-gray">Issued by MIT Media Lab</p>
+            <div class="cert-footer">
+              <span class="date">Oct 12, 2025</span>
+              <button class="btn btn-accent btn-sm">View <i class="fas fa-external-link-alt"></i></button>
+            </div>
+          </div>
+          <!-- More cards will be added via JS or duplicated here -->
+        </div>
+      </section>
+
+      <!-- PAGE 4: ISSUE CERTIFICATE -->
+      <section id="issue-certificate" class="page-content">
+        <div class="page-header">
+          <h1>Issue New Certificate</h1>
+        </div>
+        <div class="glass-card form-container-lg">
+          <form id="issue-form">
+            <div class="row">
+              <div class="input-group col-6">
+                <label>Student Name</label>
+                <input type="text" placeholder="Full legal name" id="studentName">
+              </div>
+              <div class="input-group col-6">
+                <label>Course Name</label>
+                <input type="text" placeholder="e.g. Master of Computer Science" id="courseName">
+              </div>
+            </div>
+            <div class="input-group mt-20">
+              <label>Institution Name</label>
+              <input type="text" placeholder="University or Organization" id="institutionName">
+            </div>
+            <div class="file-upload mt-20">
+              <input type="file" id="certFile" hidden>
+              <label for="certFile" class="file-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Upload Certificate (PDF) <br> <span class="text-gray" style="font-size: 0.8rem;">Max size 5MB</span>
+                </p>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-accent mt-30 w-100">Publish to Blockchain</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- PAGE 5: VERIFY CERTIFICATE -->
+      <section id="verify-certificate" class="page-content">
+        <div class="page-header">
+          <h1>Verify Certificate</h1>
+        </div>
+        <div class="verify-options">
+          <div class="glass-card verify-method" id="upload-verify">
+            <i class="fas fa-file-pdf"></i>
+            <h3>Upload PDF</h3>
+            <p class="text-gray">Verify the integrity of a PDF file</p>
+            <div class="file-upload-mini">
+              <input type="file" id="verify-file" hidden>
+              <label for="verify-file" class="btn btn-primary btn-sm">Select File</label>
+            </div>
+            <button class="btn btn-accent mt-10" id="btn-verify-file">Verify Integrity</button>
+          </div>
+          <div class="glass-card verify-method">
+            <i class="fas fa-fingerprint"></i>
+            <h3>Certificate ID</h3>
+            <p class="text-gray">Enter the blockchain or certificate ID</p>
+            <div class="input-row">
+              <input type="text" placeholder="e.g. CERT-172..." id="verify-id-input">
+              <button class="btn btn-accent" id="btn-verify-id">Verify</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 6: RECENT VERIFICATIONS -->
+      <section id="recent-verifications" class="page-content">
+        <div class="page-header">
+          <h1>Verification History</h1>
+        </div>
+        <div class="glass-card history-container">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="history-body">
+              <!-- Rows inserted by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PAGE 7: PROFILE SETTINGS -->
+      <section id="profile" class="page-content">
+        <div class="page-header">
+          <h1>Account Settings</h1>
+        </div>
+
+        <div class="profile-dashboard">
+          <!-- Left: Identity Summary -->
+          <div class="glass-card profile-summary">
+            <div class="profile-banner"></div>
+            <div class="profile-avatar-wrapper">
+              <img src="https://api.dicebear.com/7.x/initials/svg?seed=Surekha&backgroundColor=7c3aed" alt="Avatar"
+                class="profile-img-lg" id="profile-img-display">
+              <button class="avatar-edit-btn"><i class="fas fa-camera"></i></button>
+            </div>
+            <div class="profile-info-block">
+              <h2 id="profile-display-name">John Doe</h2>
+              <span class="role-badge" id="profile-role-badge">Verified Administrator</span>
+              <p class="text-gray mt-10">Blockchain Ledger Member since <span id="profile-member-since">2026</span></p>
+            </div>
+            <div class="profile-stats mt-30">
+              <div class="p-stat">
+                <span id="profile-cert-count">0</span>
+                <p>Certificates</p>
+              </div>
+              <div class="p-stat">
+                <span id="profile-trust-score">100%</span>
+                <p>Trust Score</p>
+              </div>
+            </div>
+            <div class="blockchain-status mt-30">
+              <label>Network Status</label>
+              <div class="status-indicator live"><span></span> Connected to Mainnet</div>
+            </div>
+          </div>
+
+          <!-- Right: Detailed Settings -->
+          <div class="glass-card profile-details">
+            <div class="settings-nav mb-30">
+              <button class="tab-btn active" data-tab="general">General Info</button>
+              <button class="tab-btn" data-tab="security">Security</button>
+              <button class="tab-btn" data-tab="notifications">Notifications</button>
+            </div>
+
+            <form class="profile-form">
+              <!-- General Section -->
+              <div id="section-general" class="settings-content active">
+                <div class="settings-section-title">
+                  <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                </div>
+                <div class="row mt-20">
+                  <div class="input-group col-6">
+                    <label><i class="fas fa-id-card"></i> Full Name</label>
+                    <input type="text" value="John Doe" id="profile-full-name">
+                  </div>
+                  <div class="input-group col-6">
+                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" value="john.doe@example.com" id="profile-email">
+                  </div>
+                </div>
+
+                <div class="settings-section-title mt-40">
+                  <h3><i class="fas fa-link"></i> Blockchain Identity</h3>
+                </div>
+                <div class="input-group mt-20">
+                  <label>Public Verification Key</label>
+                  <input type="text" id="profile-wallet-address" value="0x..." disabled
+                    style="font-family: monospace; opacity: 0.6;">
+                  <span class="text-gray" style="font-size: 0.75rem;">This unique ID identifies you across the
+                    decentralized network.</span>
+                </div>
+              </div>
+
+              <!-- Security Section -->
+              <div id="section-security" class="settings-content">
+                <div class="settings-section-title">
+                  <h3><i class="fas fa-shield-alt"></i> Security & Access</h3>
+                </div>
+                <div class="row mt-20">
+                  <div class="input-group col-6">
+                    <label>Current Password</label>
+                    <input type="password" placeholder="••••••••">
+                  </div>
+                  <div class="input-group col-6">
+                    <label>New Password</label>
+                    <input type="password" placeholder="Min. 8 characters">
+                  </div>
+                </div>
+                <div class="mt-20">
+                  <p class="text-gray" style="font-size: 0.9rem;"><i class="fas fa-info-circle"></i> Enable 2-Factor
+                    Authentication for enhanced security.</p>
+                  <button type="button" class="btn btn-primary mt-10">Setup 2FA</button>
+                </div>
+              </div>
+
+              <!-- Notifications Section -->
+              <div id="section-notifications" class="settings-content">
+                <div class="settings-section-title">
+                  <h3><i class="fas fa-bell"></i> Alert Preferences</h3>
+                </div>
+                <div class="mt-20">
+                  <div class="pref-item d-flex-between mb-20"
+                    style="padding-bottom: 10px; border-bottom: 1px solid var(--glass-border);">
+                    <span>Email Notifications on Issuance</span>
+                    <input type="checkbox" checked>
+                  </div>
+                  <div class="pref-item d-flex-between mb-20"
+                    style="padding-bottom: 10px; border-bottom: 1px solid var(--glass-border);">
+                    <span>Browser Alerts for Verifications</span>
+                    <input type="checkbox" checked>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions mt-40 pt-20" style="border-top: 1px solid var(--glass-border);">
+                <button class="btn btn-accent px-40">Update Profille</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div id="success-modal" class="modal">
+    <div class="glass-card modal-content text-center">
+      <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+      <h2>Certificate Issued Successfully!</h2>
+      <p class="text-gray">Certificate ID: <strong id="display-cert-id" style="color: #AEC6CF;">CERT-ID-HERE</strong>
+      </p>
+      <p class="text-gray" style="font-size: 0.8rem; margin-top: 5px;">Transaction Hash: <span id="tx-hash"
+          style="word-break: break-all;">0xfa4...92</span></p>
+      <div class="qr-preview mt-20">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example" alt="QR Code">
+      </div>
+      <div class="modal-actions mt-30">
+        <button class="btn btn-accent" id="close-modal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast">
+    <i class="fas fa-info-circle"></i>
+    <span id="toast-message">Action completed</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "blockcred-parent",
+  "version": "1.0.0",
+  "scripts": {
+    "gateway": "cd gateway && npm start",
+    "core": "cd core-service && ./mvnw spring-boot:run",
+    "blockchain:compile": "npx hardhat compile",
+    "blockchain:node": "npx hardhat node",
+    "blockchain:deploy": "npx hardhat run contracts/deploy.js --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.1"
+  }
+}

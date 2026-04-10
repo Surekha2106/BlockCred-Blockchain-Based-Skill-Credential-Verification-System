@@ -1,0 +1,9 @@
+com\blockcred\SeedData.class
+com\blockcred\BlockCredApplication$1.class
+com\blockcred\controller\CertificateController.class
+com\blockcred\repository\CertificateRepository.class
+com\blockcred\model\User.class
+com\blockcred\BlockCredApplication.class
+com\blockcred\repository\UserRepository.class
+com\blockcred\model\Certificate.class
+com\blockcred\controller\AuthController.class

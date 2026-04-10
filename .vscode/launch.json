@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Core Service (Java)",
+      "request": "launch",
+      "mainClass": "com.blockcred.BlockCredApplication",
+      "projectName": "core-service",
+      "cwd": "${workspaceFolder}/core-service"
+    },
+    {
+      "type": "node",
+      "name": "Run Gateway (Node.js)",
+      "request": "launch",
+      "program": "${workspaceFolder}/gateway/server.js",
+      "cwd": "${workspaceFolder}/gateway"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Run Full App (Both Services)",
+      "configurations": [
+        "Run Core Service (Java)",
+        "Run Gateway (Node.js)"
+      ]
+    }
+  ]
+}
